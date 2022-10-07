@@ -1,25 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {FC} from 'react';
+import useInput from "./hook/useInput";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App = (props) => {
+    const description = useInput('Описание',{isEmpty:true,minLength:3})
+    return (
+        <div>
+            {(description.isDirty && description.isEmpty) && <div style={{color:"red"}}>Empty</div>}
+            {(description.isDirty && description.minLengthError) && <div style={{color:"red"}}>Min</div>}
+            <input value={description.value} onBlur={description.onBlue} onChange={description.onChange}/>
+        </div>
+    );
+};
 
 export default App;
